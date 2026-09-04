@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build / pack output
+dist/
+out/
+release/
+*.tsbuildinfo
+
+# Logs and OS junk
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor / local env
+.vscode/
+.idea/
+.env
+.env.*
+!.env.example
+
+# Downloaded engines, models, and setup caches (run `npm run setup`)
+resources/bin/**
+!resources/bin/.gitkeep
+resources/models/**
+!resources/models/.gitkeep
+resources/rife-models/**
+!resources/rife-models/.gitkeep
+resources/*.zip
+resources/gst/__pycache__/
+*.tmp

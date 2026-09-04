@@ -1,0 +1,4 @@
+numpy
+pillow
+cuda-python>=12.6,<13
+tensorrt-cu12>=10.10,<11

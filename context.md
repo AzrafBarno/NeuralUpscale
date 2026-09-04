@@ -1,0 +1,1 @@
+The name of this project is NeuralUpscale. It's a cross-platform image and video upscaler Electron app that uses RealESRGAN models to upscale images and videos and RIFE to interpolate videos.

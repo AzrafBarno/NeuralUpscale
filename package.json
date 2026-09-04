@@ -1,0 +1,132 @@
+{
+  "name": "neuralupscale",
+  "version": "1.0.0",
+  "description": "GPU-accelerated AI image & video upscaler with RIFE interpolation and optional TensorRT (Green Sparkle)",
+  "main": "./out/main/index.js",
+  "author": {
+   "name": "Azraf Barno",
+   "email": "azrafbaghc@gmail.com"
+   },
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build && electron-builder",
+    "build:all": "electron-vite build && electron-builder -mwl",
+    "preview": "electron-vite preview",
+    "setup": "tsx scripts/setup-resources.ts",
+    "icons": "tsx scripts/generate-icon.ts",
+    "postinstall": "node -e \"if(!process.env.SKIP_SETUP){try{require('child_process').execSync('npm run setup',{stdio:'inherit'})}catch(e){console.warn('Setup skipped or failed. Run npm run setup manually.')}}; try{require('child_process').execSync('npm run icons',{stdio:'inherit'})}catch(e){console.warn('Icon generation skipped.')}\""
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.4",
+    "@radix-ui/react-progress": "^1.1.1",
+    "@radix-ui/react-select": "^2.1.4",
+    "@radix-ui/react-slider": "^1.2.2",
+    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-tabs": "^1.1.2",
+    "@radix-ui/react-toast": "^1.2.4",
+    "@radix-ui/react-tooltip": "^1.1.6",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "electron-store": "^8.2.0",
+    "lucide-react": "^0.469.0",
+    "sharp": "^0.33.5",
+    "tailwind-merge": "^2.6.0",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "adm-zip": "^0.5.16",
+    "autoprefixer": "^10.4.20",
+    "electron": "^29.4.6",
+    "electron-builder": "^24.13.3",
+    "electron-vite": "^2.3.0",
+    "postcss": "^8.4.49",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11"
+  },
+  "build": {
+    "appId": "com.neuralupscale.app",
+    "productName": "NeuralUpscale",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "icon": "build/icon.png",
+    "files": [
+      "out/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/bin",
+        "to": "bin"
+      },
+      {
+        "from": "resources/models",
+        "to": "models"
+      },
+      {
+        "from": "resources/rife-models",
+        "to": "rife-models"
+      },
+      {
+        "from": "resources/gst",
+        "to": "gst"
+      },
+      {
+        "from": "build/icon.png",
+        "to": "icon.png"
+      }
+    ],
+    "asarUnpack": [
+      "resources/bin/**",
+      "resources/models/**",
+      "resources/rife-models/**",
+      "resources/gst/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "license": "build/license.txt",
+      "include": "build/installer.nsh",
+      "installerLanguages": [
+        "en_US"
+      ],
+      "displayLanguageSelector": false,
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "warningsAsErrors": false
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/icon.png"
+    }
+  }
+}
